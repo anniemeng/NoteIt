@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Change the way you save notes">
+    {% assets "css_main" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+    <title>NoteIt</title>
+    {% endblock %}
+</head>
+
+<body>
+    <div id="main" class="scene">
+        {% if self.header() %}
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        {% endif %}
+
+        <main class="fade-in-up element">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="flash-error">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block main %}{% endblock %}
+        </main>
+
+        {% block scripts %}{% endblock %}
+
+    </div>
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.rawgit.com/weblinc/jquery.smoothState.js/master/jquery.smoothState.js"></script>
+    <script>
+        (function ($) {
+          'use strict';
+           var $body = $('html, body'),
+              content = $('#main').smoothState({
+                development: true,
+                prefetch: true,
+                pageCacheSize: 4,
+                onStart: {
+                    duration: 250,
+                    render: function (url, $container) {
+                        content.toggleAnimationClass('is-exiting');
+                    }
+                }
+              }).data('smoothState');
+        })(jQuery);
+    </script>
+</body>
+
+</html>
