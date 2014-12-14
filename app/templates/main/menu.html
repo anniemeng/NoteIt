@@ -13,7 +13,9 @@
 <ul>
 {% for doc in user.documents %}
   <li>
+    <a href="document/{{ doc.id }}">
     <p>Title: {{ doc.title }}</p>
+    </a>
     <p>Article: {{ doc.article }}</p>
     {% for note in doc.notes %}
       <p>Note: {{ note.body }} </p>

@@ -1,0 +1,58 @@
+{% extends "main/base.html" %}
+
+{% block main %}
+  <button class="edit">Edit notes</button>
+
+  <h1> {{ document.title }} </h1>
+  <div id="document">
+    {% for text in content %}
+      <p>{{text}}</p>
+    {% endfor %}
+  </div>
+
+  <div id="notes">
+    {% for note in notes %}
+      <p class="note" value="{{ note.highlight }}">Note: {{ note.body }} </p>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="../../static/js/jquery.highlight.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    height = $(window).height();
+    $("#document").height(height);
+
+    {% for hl in highlights %}
+        $("#document").highlight("{{ hl }}");
+    {% endfor %}
+
+    $(".note").click(function() {
+      var txt = $(".note").attr("value");
+      //$("#document").highlight(txt);
+    });
+  });
+
+  $(document).resize(function() {
+    height = $(window).height();
+    $("#document").height(height);
+  });
+
+</script>
+<script>
+/*$(".edit").click(function() {
+$.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/document",
+data: JSON.stringify({title: '{{ document.title }}', id: {{ document.id }} }),
+success: function (data) {
+console.log("successful ajax");
+},
+dataType: "json"
+});
+}); */
+</script>
+{% endblock %}

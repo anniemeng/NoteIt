@@ -1,10 +1,11 @@
 from flask import flash, render_template, session, redirect, url_for, current_app, request
 from .. import db
-from ..models import User
+from ..models import User, Document
 from .forms import LoginForm, DocumentForm, NoteForm
 from . import main
 from flask.ext.login import login_user, login_required, current_user, logout_user
 import requests
+from werkzeug.datastructures import ImmutableMultiDict
 
 from ..retrievePage import retrieve_text
 
@@ -46,8 +47,22 @@ def document():
     title = request.args.get('title')
     form = NoteForm()
     if form.validate_on_submit():
-        current_user.add_doc(title, orig, form.data['note'])
+        current_user.add_doc(title, orig, form.data['note'], form.data['highlight'])
     return render_template('main/document.html', user=current_user, content=content, form=form)
+
+
+@main.route('/document/<document_id>', methods=['GET','POST'])
+@login_required
+def doc(document_id):
+    document = Document.query.get(document_id)
+    content = document.article.split("\n\n")
+    notes = document.notes
+    highlights = []
+    for note in notes:
+        highlight = note.highlight.split("\s+");
+        for hl in highlight:
+            highlights.append(hl.replace('\n', '\\n'));
+    return render_template('main/view.html', user=current_user, document=document, content=content, notes=notes, highlights=highlights)
 
 
 @main.route('/logout')

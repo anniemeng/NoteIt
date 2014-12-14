@@ -12,15 +12,15 @@ h1 {
 }
 
 /* line 13 */
-#note {
+#notes {
   float: left;
   width: 40%;
   z-index: 100;
 }
 
 /* line 19 */
-form {
-  z-index: 100;
+#note, label[for="note"], #submit {
+  visibility: hidden;
 }
 
 /* line 24 */
@@ -28,18 +28,18 @@ form {
   display: none;
 }
 
-/* line 29 */
+/* line 28 */
 label[for="highlight"] {
   visibility: hidden;
 }
 
-/* line 33 */
+/* line 32 */
 .control-label {
   clear: both;
   display: block;
 }
 
-/* line 38 */
+/* line 39 */
 .highlight {
-  background: yellow;
+  background-color: yello;
 }

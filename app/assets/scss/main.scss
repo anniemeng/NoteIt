@@ -10,20 +10,19 @@ h1 {
   overflow-y:scroll;
 }
 
-#note {
+#notes {
   float:left;
   width: 40%;
   z-index:100;
 }
 
-form {
-  z-index:100;
-  //visibility:hidden;
+#note, label[for="note"], #submit {
+  visibility:hidden;
 }
 
+// hidden highlight field
 #highlight {
   display:none;
-  //visibility:hidden;
 }
 
 label[for="highlight"] {
@@ -35,6 +34,8 @@ label[for="highlight"] {
   display:block;
 }
 
+
+// viewing
 .highlight {
-  background: yellow;
+  background-color: yello;
 }

@@ -14,7 +14,7 @@
   {% endif %}
   </div>
 
-  <div id="note">
+  <div id="notes">
     {{ wtf.quick_form(form) }}
   </div>
 
@@ -28,19 +28,32 @@
     height = $(window).height();
     $("#document").height(height);
 
-    noteWidth = $("#note").width();
+    noteWidth = $("#notes").width();
     $("textarea").height(height/2);
     $("textarea").width((3*noteWidth)/4);
 
     $("#document").textHighlighter({
       onAfterHighlight: function(highlights, range) {
-        $("form").css("visibility", "visible");
+
+        // enable notes
+        $("#note").val('');
+        $("#note").css("visibility", "visible");
+        $("label[for='note']").css("visibility", "visible");
+        $("#submit").css("visibility", "visible");
+
+        // set highlighted field
+        $("#highlight").val('');
         var highlighted = $(highlights).text();
         $("#highlight").val(highlighted);
+
+        // enable remove highlights
         $("#document").dblclick(function() {
             $('#document').getHighlighter().removeHighlights();
-            $("form").css("visibility", "hidden");
-            $("#highlight").val("");
+
+            // hide notes
+            $("#note").css("visibility", "hidden");
+            $("label[for='note']").css("visibility", "hidden");
+            $("#submit").css("visibility", "hidden");
         });
       }
     });
@@ -49,7 +62,7 @@
   $(document).resize(function() {
     height = $(window).height();
     $("#document").height(height);
-    noteWidth = $("#note").width();
+    noteWidth = $("#notes").width();
     $("textarea").height(height/2);
     $("textarea").width((3*noteWidth)/4);
   });
