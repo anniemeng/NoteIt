@@ -5,6 +5,7 @@ from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import hashlib
 
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -30,17 +31,50 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def add_doc(self, title, article, notes):
+        all_docs = Document.query.all()
+        found = False
+        for doc in all_docs:
+            if (doc.article == article):
+                note = Note(body=notes, document_id=doc.id)
+                doc.notes.append(note)
+                found = True
+                db.session.add(note)
+                db.session.add(doc)
+                db.session.commit()
+                break
+        if (not found):
+            new_doc = Document(title=title, article=article, user_id=self.id)
+            note = Note(body=notes, document_id=new_doc.id)
+            new_doc.notes.append(note)
+            self.documents.append(new_doc)
+            db.session.add(self)
+            db.session.add(note)
+            db.session.add(new_doc)
+            db.session.commit()
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 class Document(db.Model):
     __tablename__='docs'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     article = db.Column(db.Text)
-    notes = db.Column(db.Text)
+    notes = db.relationship('Note', backref='notes', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return '<Document %r>' % self.id
+
+class Note(db.Model):
+    __tablename__='notes'
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    document_id = db.Column(db.Integer, db.ForeignKey('docs.id'))
+
+    def __repr__(self):
+        return '<Note %r>' % self.id

@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import Required, Length, Email
 
 class LoginForm(Form):
@@ -7,3 +7,13 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[Required()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log in')
+
+class DocumentForm(Form):
+    title = StringField('Title', validators=[Required()])
+    url = StringField('URL', validators=[Required()])
+    submit = SubmitField('Take notes!')
+
+class NoteForm(Form):
+    note = TextAreaField('Enter your note', validators=[Required()])
+    highlight = TextAreaField(validators=[Required()])
+    submit = SubmitField('Submit')

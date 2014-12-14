@@ -1,3 +1,40 @@
 h1 {
   text-align:center;
 }
+
+
+#document {
+  float:left;
+  width:50%;
+  margin-right: 5%;
+  overflow-y:scroll;
+}
+
+#note {
+  float:left;
+  width: 40%;
+  z-index:100;
+}
+
+form {
+  z-index:100;
+  //visibility:hidden;
+}
+
+#highlight {
+  display:none;
+  //visibility:hidden;
+}
+
+label[for="highlight"] {
+  visibility:hidden;
+}
+
+.control-label {
+  clear:both;
+  display:block;
+}
+
+.highlight {
+  background: yellow;
+}

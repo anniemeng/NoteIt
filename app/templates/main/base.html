@@ -33,13 +33,14 @@
             {% block main %}{% endblock %}
         </main>
 
+        <!-- page specific scripts -->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdn.rawgit.com/weblinc/jquery.smoothState.js/master/jquery.smoothState.js"></script>
         {% block scripts %}{% endblock %}
 
     </div>
 
     <!-- scripts -->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdn.rawgit.com/weblinc/jquery.smoothState.js/master/jquery.smoothState.js"></script>
     <script>
         (function ($) {
           'use strict';

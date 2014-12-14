@@ -1,4 +1,25 @@
 {% extends "main/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
 {% block main %}
-<h1>Welcome</h1>
+<h1>Welcome {{ user.name }}</h1>
+<button type="button" class="btn" onClick='location.href="/logout"'>Logout</button>
+<h2> Your Documents </h2>
+
+<h3> Create new document </h3>
+{{ wtf.quick_form(form) }}
+
+<h3> Current Documents </h3>
+<ul>
+{% for doc in user.documents %}
+  <li>
+    <p>Title: {{ doc.title }}</p>
+    <p>Article: {{ doc.article }}</p>
+    {% for note in doc.notes %}
+      <p>Note: {{ note.body }} </p>
+    {% endfor %}
+  </li>
+{% endfor %}
+</ul>
+
 {% endblock %}

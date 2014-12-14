@@ -1,0 +1,57 @@
+{% extends "main/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block main %}
+  <h1>Make your notes</h1>
+
+  <div id="document">
+  {% if content %}
+    {% for text in content %}
+      <p>{{ text }}</p>
+    {% endfor %}
+  {% else %}
+    <p>Error!</p>
+  {% endif %}
+  </div>
+
+  <div id="note">
+    {{ wtf.quick_form(form) }}
+  </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="../../static/js/jquery.textHighlighter.pack.min.js"></script>
+<script>
+  $(document).ready(function() {
+    height = $(window).height();
+    $("#document").height(height);
+
+    noteWidth = $("#note").width();
+    $("textarea").height(height/2);
+    $("textarea").width((3*noteWidth)/4);
+
+    $("#document").textHighlighter({
+      onAfterHighlight: function(highlights, range) {
+        $("form").css("visibility", "visible");
+        var highlighted = $(highlights).text();
+        $("#highlight").val(highlighted);
+        $("#document").dblclick(function() {
+            $('#document').getHighlighter().removeHighlights();
+            $("form").css("visibility", "hidden");
+            $("#highlight").val("");
+        });
+      }
+    });
+  });
+
+  $(document).resize(function() {
+    height = $(window).height();
+    $("#document").height(height);
+    noteWidth = $("#note").width();
+    $("textarea").height(height/2);
+    $("textarea").width((3*noteWidth)/4);
+  });
+</script>
+{% endblock %}

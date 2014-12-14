@@ -2,3 +2,44 @@
 h1 {
   text-align: center;
 }
+
+/* line 6 */
+#document {
+  float: left;
+  width: 50%;
+  margin-right: 5%;
+  overflow-y: scroll;
+}
+
+/* line 13 */
+#note {
+  float: left;
+  width: 40%;
+  z-index: 100;
+}
+
+/* line 19 */
+form {
+  z-index: 100;
+}
+
+/* line 24 */
+#highlight {
+  display: none;
+}
+
+/* line 29 */
+label[for="highlight"] {
+  visibility: hidden;
+}
+
+/* line 33 */
+.control-label {
+  clear: both;
+  display: block;
+}
+
+/* line 38 */
+.highlight {
+  background: yellow;
+}
