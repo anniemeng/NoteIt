@@ -1,14 +1,24 @@
-from flask import flash, render_template, session,
-redirect, url_for, current_app, request
+from flask import (
+    flash,
+    render_template,
+    session,
+    redirect,
+    url_for,
+    request,
+    current_app,
+    )
 from .. import db
 from ..models import User, Document
 from .forms import LoginForm, SignupForm, DocumentForm, NoteForm
 from . import main
-from flask.ext.login import login_user, login_required,
-current_user, logout_user
+from flask.ext.login import (
+    login_user,
+    login_required,
+    current_user,
+    logout_user,
+    )
 import requests
 from werkzeug.datastructures import ImmutableMultiDict
-
 from ..retrievePage import retrieve_text
 
 

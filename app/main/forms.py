@@ -1,6 +1,11 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, PasswordField, BooleanField,
-SubmitField, TextAreaField
+from wtforms import (
+    StringField,
+    PasswordField,
+    BooleanField,
+    SubmitField,
+    TextAreaField,
+    )
 from wtforms.validators import Required, Length, Email, EqualTo
 
 
