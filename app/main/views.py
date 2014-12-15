@@ -84,6 +84,7 @@ def document():
     if form.validate_on_submit():
         current_user.add_doc(title, descrip, orig, form.data['note'],
                              form.data['highlight'])
+        flash("Added note!")
     return render_template('main/document.html', user=current_user,
                            content=content, form=form)
 

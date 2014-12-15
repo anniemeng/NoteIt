@@ -3350,7 +3350,7 @@ main:after {
 }
 
 /* line 56 */
-.help-block {
+.help-block, .flash-error {
   color: #AEA8D3;
   font-weight: bold;
 }

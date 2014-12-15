@@ -1,6 +1,6 @@
 import os
 
-from flask.ext.script import Manager, Shell
+from flask.ext.script import Manager, Shell, Server
 from app import create_app, db
 from app.models import User, Document, Note
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -24,9 +24,15 @@ def populate():
 
     annie = User(name="Annie Meng", email="anniezmeng@gmail.com",
                  password="password")
-    remi = User(name="Irem Oz", email="ioz@gmail.com", password="password")
+    lili = User(name="Lili Dworkin", email="lili@gmail.com",
+                password="password")
     db.session.add(annie)
-    db.session.add(remi)
+    db.session.add(lili)
+
+
+@manager.command
+def customServer(host, port):
+    app.run(host=host, port=int(port))
 
 if __name__ == '__main__':
     manager.run()
