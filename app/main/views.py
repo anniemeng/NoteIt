@@ -1,13 +1,16 @@
-from flask import flash, render_template, session, redirect, url_for, current_app, request
+from flask import flash, render_template, session,
+redirect, url_for, current_app, request
 from .. import db
 from ..models import User, Document
-from .forms import LoginForm, DocumentForm, NoteForm
+from .forms import LoginForm, SignupForm, DocumentForm, NoteForm
 from . import main
-from flask.ext.login import login_user, login_required, current_user, logout_user
+from flask.ext.login import login_user, login_required,
+current_user, logout_user
 import requests
 from werkzeug.datastructures import ImmutableMultiDict
 
 from ..retrievePage import retrieve_text
+
 
 @main.route('/')
 @main.route('/index')
@@ -28,6 +31,25 @@ def login():
     return render_template('main/login.html', form=form)
 
 
+@main.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignupForm()
+    if form.validate_on_submit():
+        userTest = User.query.filter_by(email=form.email.data).first()
+        if not userTest:
+            user = User(email=form.email.data,
+                        name=form.name.data,
+                        password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('main.menu'))
+        else:
+            flash("User already exists")
+            return redirect(url_for('main.login'))
+    return render_template('main/signup.html', form=form)
+
+
 @main.route('/menu', methods=['GET', 'POST'])
 @login_required
 def menu():
@@ -36,7 +58,8 @@ def menu():
         content = retrieve_text(form.data['url'])
         title = form.data['title']
         descrip = form.data['descrip']
-        return redirect(url_for('main.document', content=content, title=title, description=descrip))
+        return redirect(url_for('main.document', content=content,
+                        title=title, description=descrip))
     return render_template('main/menu.html', user=current_user, form=form)
 
 
@@ -49,11 +72,13 @@ def document():
     descrip = request.args.get('description')
     form = NoteForm()
     if form.validate_on_submit():
-        current_user.add_doc(title, descrip, orig, form.data['note'], form.data['highlight'])
-    return render_template('main/document.html', user=current_user, content=content, form=form)
+        current_user.add_doc(title, descrip, orig, form.data['note'],
+                             form.data['highlight'])
+    return render_template('main/document.html', user=current_user,
+                           content=content, form=form)
 
 
-@main.route('/document/<document_id>', methods=['GET','POST'])
+@main.route('/document/<document_id>', methods=['GET', 'POST'])
 @login_required
 def doc(document_id):
     document = Document.query.get(document_id)
@@ -61,10 +86,23 @@ def doc(document_id):
     notes = document.notes
     highlights = []
     for note in notes:
-        highlight = note.highlight.split("\s+");
-        for hl in highlight:
-            highlights.append(hl.replace('\n', '\\n'));
-    return render_template('main/view.html', user=current_user, document=document, content=content, notes=notes, highlights=highlights)
+        highlights.append(str(note.highlight).encode('string_escape'))
+    return render_template('main/view.html', user=current_user,
+                           document=document, content=content,
+                           notes=notes, highlights=highlights)
+
+
+@main.route('/delete/<document_id>', methods=['GET', 'POST'])
+@login_required
+def delete(document_id):
+    document = Document.query.get(document_id)
+    notes = document.notes
+    for note in notes:
+        db.session.delete(note)
+    db.session.delete(document)
+    db.session.commit()
+    highlights = []
+    return redirect(url_for('main.menu'))
 
 
 @main.route('/logout')

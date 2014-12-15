@@ -1,7 +1,8 @@
 {% extends "main/base.html" %}
 
 {% block bar %}
-<a class="link-bar-back" href="/menu">Back</a>
+<a class="link-bar-back" href="/../menu">Back</a>
+<a class="link-bar" href="/delete/{{document.id}}">Delete</a>
 <a class="link-bar" href="#">Edit</a>
 {% endblock %}
 
@@ -15,7 +16,7 @@
 
   <div id="notes">
     {% for note in notes %}
-      <p class="note" value="{{ note.highlight }}">Note: {{ note.body }} </p>
+      <p class="note note{{ note.id }}" value="{{ note.highlight }}">{{ note.body }} </p>
     {% endfor %}
   </div>
 
@@ -28,14 +29,12 @@
     height = $(window).height();
     $("#document").height(height);
 
-    /*{% for hl in highlights %}
-        $("#document").highlight("{{ hl }}");
-    {% endfor %}*/
-
-    $(".note").click(function() {
-      var txt = $(".note").attr("value");
-      //$("#document").highlight(txt);
-    });
+    {% for note in notes %}
+      $(".note{{ note.id }}").click(function() {
+        $txt = $(".note{{ note.id }}").attr("value");
+        $("#document").highlight($txt);
+      });
+    {% endfor %}
   });
 
   $(window).resize(function() {
@@ -43,19 +42,8 @@
     $("#document").height(height);
   });
 
-</script>
-<script>
-/*$(".edit").click(function() {
-$.ajax({
-type: "POST",
-contentType: "application/json; charset=utf-8",
-url: "/document",
-data: JSON.stringify({title: '{{ document.title }}', id: {{ document.id }} }),
-success: function (data) {
-console.log("successful ajax");
-},
-dataType: "json"
-});
-}); */
+  $("#document").dblclick(function() {
+    $("#document").unhighlight();
+  });
 </script>
 {% endblock %}

@@ -36,7 +36,8 @@ class User(UserMixin, db.Model):
         found = False
         for doc in all_docs:
             if (doc.article == article):
-                note = Note(body=notes, document_id=doc.id, highlight=highlight)
+                note = Note(body=notes, document_id=doc.id,
+                            highlight=highlight)
                 doc.notes.append(note)
                 found = True
                 db.session.add(note)
@@ -44,8 +45,10 @@ class User(UserMixin, db.Model):
                 db.session.commit()
                 break
         if (not found):
-            new_doc = Document(title=title, article=article, description=descrip, user_id=self.id)
-            note = Note(body=notes, document_id=new_doc.id, highlight=highlight)
+            new_doc = Document(title=title, article=article,
+                               description=descrip, user_id=self.id)
+            note = Note(body=notes, document_id=new_doc.id,
+                        highlight=highlight)
             new_doc.notes.append(note)
             self.documents.append(new_doc)
             db.session.add(self)
@@ -60,7 +63,7 @@ def load_user(user_id):
 
 
 class Document(db.Model):
-    __tablename__='docs'
+    __tablename__ = 'docs'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     description = db.Column(db.Text)
@@ -71,8 +74,9 @@ class Document(db.Model):
     def __repr__(self):
         return '<Document %r>' % self.id
 
+
 class Note(db.Model):
-    __tablename__='notes'
+    __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
     highlight = db.Column(db.Text)
     body = db.Column(db.Text)

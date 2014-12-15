@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div id="main">
+    <div id="main" class="scene">
       <div class="bar">
         {% block bar %}{% endblock %}
       </div>
@@ -39,21 +39,21 @@
 
     <!-- scripts -->
     <script>
-        (function ($) {
-          'use strict';
-           var $body = $('html, body'),
-              content = $('#main').smoothState({
-                development: true,
-                prefetch: true,
-                pageCacheSize: 4,
-                onStart: {
-                    duration: 250,
-                    render: function (url, $container) {
-                        content.toggleAnimationClass('is-exiting');
-                    }
-                }
-              }).data('smoothState');
-        })(jQuery);
+      /*(function ($) {
+        'use strict';
+        var content = $('#main').smoothState({
+          development: true,
+          prefetch: true,
+          pageCacheSize: 4,
+          onEnd: {
+            duration: 0,
+            render: function(url, $container, $content) {
+              $container.html($content);
+            }
+          }
+        }).data('smoothState');
+
+      })(jQuery);*/
     </script>
 </body>
 

@@ -32,10 +32,12 @@
     height = $(window).height();
     $("#document").height(height);
 
+    // text area width
     noteWidth = $("#notes").width();
     $("textarea").height(height/2);
     $("textarea").width(noteWidth);
 
+    // text highlighter
     $("#document").textHighlighter({
       onAfterHighlight: function(highlights, range) {
 

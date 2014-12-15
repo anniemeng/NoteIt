@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup, NavigableString
 import unicodedata
 
+
 def retrieve_text(url):
     req = requests.get(url)
     if req.status_code != 200:
@@ -9,8 +10,7 @@ def retrieve_text(url):
 
     soup = BeautifulSoup(req.text)
 
-
-    #remove script tag
+    # remove script tag
     script = soup.find_all('script')
     style = soup.find_all('style')
     nav = soup.find_all('nav')
@@ -42,5 +42,5 @@ def retrieve_text(url):
     [i.extract() for i in other]'''
 
     text = soup.get_text()
-    text = unicodedata.normalize('NFKD', text).encode('ascii','ignore')
+    text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
     return text

@@ -3365,31 +3365,36 @@ main:after {
 }
 
 /* line 69 */
-.login-title {
+.cred-title {
   font-size: 300%;
   margin-bottom: 5%;
 }
 
 /* line 74 */
-#login {
+#login, #signup {
   margin-top: 3%;
+}
+
+/* line 78 */
+.main-btn {
+  margin: 0 0.5em;
 }
 
 /*********************/
 /** PAGE SPECIFIC **/
 /*********************/
-/* line 81 */
+/* line 85 */
 .page-title {
   margin-bottom: 4%;
 }
 
 /**** MENU ****/
-/* line 86 */
+/* line 90 */
 .welcome {
   font-size: 400%;
 }
 
-/* line 90 */
+/* line 94 */
 hr {
   width: 10%;
   color: #AEA8D3;
@@ -3398,18 +3403,18 @@ hr {
   margin-bottom: 3%;
 }
 
-/* line 98 */
+/* line 102 */
 .create {
   clear: both;
   margin: 7% auto;
 }
 
-/* line 103 */
+/* line 107 */
 .current {
   margin: 5% auto;
 }
 
-/* line 115 */
+/* line 119 */
 .flex-boxes {
   -webkit-box-pack: center;
   -moz-box-pack: center;
@@ -3438,7 +3443,7 @@ hr {
   clear: both;
 }
 
-/* line 122 */
+/* line 126 */
 .flex-box {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -3457,13 +3462,15 @@ hr {
   max-width: 31%;
   min-width: 31%;
   float: left;
+  min-height: 200px;
+  max-height: 200px;
 }
-/* line 136 */
+/* line 142 */
 .flex-box:hover {
   background: rgba(174, 168, 211, 0.3);
 }
 
-/* line 141 */
+/* line 147 */
 .flex-box .flex-title {
   color: rgba(55, 61, 63, 0.7);
   font-family: "Source Sans Pro";
@@ -3472,7 +3479,7 @@ hr {
   margin-bottom: .5em;
 }
 
-/* line 149 */
+/* line 155 */
 .flex-box p {
   margin: auto;
   line-height: 1.5em;
@@ -3480,7 +3487,7 @@ hr {
 }
 
 /**** EDIT DOCUMENT ***/
-/* line 157 */
+/* line 163 */
 #document {
   float: left;
   width: 60%;
@@ -3493,34 +3500,34 @@ hr {
   background: rgba(221, 221, 221, 0.4);
 }
 
-/* line 169 */
+/* line 175 */
 #notes {
   float: left;
   width: 35%;
 }
 
-/* line 174 */
+/* line 180 */
 textarea {
   border-radius: 10px;
   margin-bottom: 0;
 }
 
-/* line 179 */
-#note, label[for="note"], #submit {
+/* line 185 */
+#note, label[for="note"], #submit, #edit {
   visibility: hidden;
 }
 
-/* line 184 */
+/* line 190 */
 #highlight {
   display: none;
 }
 
-/* line 188 */
+/* line 194 */
 label[for="highlight"] {
   visibility: hidden;
 }
 
-/* line 192 */
+/* line 198 */
 .control-label {
   clear: both;
   display: block;
@@ -3528,7 +3535,19 @@ label[for="highlight"] {
   font-size: 120%;
 }
 
-/* line 201 */
+/* line 205 */
+.already {
+  background-color: blue;
+}
+
+/* line 211 */
 .highlight {
-  background-color: yello;
+  background-color: yellow;
+}
+
+/* line 215 */
+.note {
+  padding: 1em;
+  background: white;
+  box-shadow: inset 0 0 1px #999, 0 2px 4px #e6e6e6;
 }
