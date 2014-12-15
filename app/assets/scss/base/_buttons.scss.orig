@@ -1,0 +1,16 @@
+a.button,
+button,
+input[type="submit"] {
+  @extend %button;
+  @include appearance(none);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+<<<<<<< HEAD
+}
+
+=======
+}
+>>>>>>> e72ca681fa5e6d87ed3e3dba17d520f49d1a3e2e

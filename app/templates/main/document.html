@@ -1,8 +1,12 @@
 {% extends "main/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block bar %}
+  <a class="link-bar-back" href="menu">Back</a>
+{% endblock %}
+
 {% block main %}
-  <h1>Make your notes</h1>
+  <h1 class="page-title">Make your notes</h1>
 
   <div id="document">
   {% if content %}
@@ -30,7 +34,7 @@
 
     noteWidth = $("#notes").width();
     $("textarea").height(height/2);
-    $("textarea").width((3*noteWidth)/4);
+    $("textarea").width(noteWidth);
 
     $("#document").textHighlighter({
       onAfterHighlight: function(highlights, range) {
@@ -64,7 +68,7 @@
     $("#document").height(height);
     noteWidth = $("#notes").width();
     $("textarea").height(height/2);
-    $("textarea").width((3*noteWidth)/4);
+    $("textarea").width(noteWidth);
   });
 </script>
 {% endblock %}

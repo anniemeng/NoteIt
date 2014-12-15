@@ -1,9 +1,12 @@
 {% extends "main/base.html" %}
 
-{% block main %}
-  <button class="edit">Edit notes</button>
+{% block bar %}
+<a class="link-bar-back" href="/menu">Back</a>
+<a class="link-bar" href="#">Edit</a>
+{% endblock %}
 
-  <h1> {{ document.title }} </h1>
+{% block main %}
+  <h1 class="page-title"> {{ document.title }} </h1>
   <div id="document">
     {% for text in content %}
       <p>{{text}}</p>
@@ -25,9 +28,9 @@
     height = $(window).height();
     $("#document").height(height);
 
-    {% for hl in highlights %}
+    /*{% for hl in highlights %}
         $("#document").highlight("{{ hl }}");
-    {% endfor %}
+    {% endfor %}*/
 
     $(".note").click(function() {
       var txt = $(".note").attr("value");
@@ -35,7 +38,7 @@
     });
   });
 
-  $(document).resize(function() {
+  $(window).resize(function() {
     height = $(window).height();
     $("#document").height(height);
   });

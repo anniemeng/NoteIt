@@ -14,13 +14,10 @@
 </head>
 
 <body>
-    <div id="main" class="scene">
-        {% if self.header() %}
-        <header>
-            {% block header %}{% endblock %}
-        </header>
-        {% endif %}
-
+    <div id="main">
+      <div class="bar">
+        {% block bar %}{% endblock %}
+      </div>
         <main class="fade-in-up element">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}

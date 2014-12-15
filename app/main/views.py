@@ -35,7 +35,8 @@ def menu():
     if form.validate_on_submit():
         content = retrieve_text(form.data['url'])
         title = form.data['title']
-        return redirect(url_for('main.document', content=content, title=title))
+        descrip = form.data['descrip']
+        return redirect(url_for('main.document', content=content, title=title, description=descrip))
     return render_template('main/menu.html', user=current_user, form=form)
 
 
@@ -45,9 +46,10 @@ def document():
     orig = request.args.get('content')
     content = orig.split("\n\n")
     title = request.args.get('title')
+    descrip = request.args.get('description')
     form = NoteForm()
     if form.validate_on_submit():
-        current_user.add_doc(title, orig, form.data['note'], form.data['highlight'])
+        current_user.add_doc(title, descrip, orig, form.data['note'], form.data['highlight'])
     return render_template('main/document.html', user=current_user, content=content, form=form)
 
 
@@ -69,4 +71,4 @@ def doc(document_id):
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.landing'))
+    return redirect(url_for('main.index'))

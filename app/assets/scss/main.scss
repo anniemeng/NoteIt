@@ -1,19 +1,179 @@
-h1 {
-  text-align:center;
+/**** IMPORTS *****/
+
+// ----- CSS reset -----
+@import "base/normalize";
+// ----- SASS libraries -----
+@import "bourbon/bourbon";
+@import "base/base";
+
+// lightweight grid system
+$max-width: em(960) !global;
+@import "neat/neat";
+@import "icons/font-awesome";
+
+/******************/
+
+/**** OVERALL *****/
+body {
+    @include clearfix;
+}
+
+// main div
+main {
+  @include outer-container;
+  margin: 4% auto;
+  text-align: center;
+}
+
+// nav bar
+.bar {
+  background: $base-accent-color;
+  color: #fff;
+  padding: 1em;
+  padding-bottom:2.5em;
+}
+
+.link-bar {
+  color:#fff;
+  padding-right: 2em;
+  float:right;
+
+  &:hover {
+    color:$raven;
+  }
+}
+
+.link-bar-back {
+  color:#fff;
+  float:left;
+  padding-left: 2em;
+
+  &:hover {
+    color:$raven;
+  }
+}
+
+.help-block {
+  color:$base-accent-color;
+  font-weight:bold;
+}
+
+/*********************/
+/** LANDING & LOGIN **/
+/*********************/
+.landing-title {
+  font-size: 500%;
+  margin-bottom: 5%;
+}
+
+.login-title {
+  font-size:300%;
+  margin-bottom: 5%;
+}
+
+#login {
+    margin-top: 3%;
+}
+
+/*********************/
+/** PAGE SPECIFIC **/
+/*********************/
+.page-title {
+  margin-bottom:4%;
+}
+
+/**** MENU ****/
+.welcome {
+  font-size: 400%;
+}
+
+hr {
+  width: 10%;
+  color:$base-accent-color;
+  border: 1px solid $base-accent-color;
+  margin: 1% auto;
+  margin-bottom:3%;
+}
+
+.create {
+  clear:both;
+  margin: 7% auto;
+}
+
+.current {
+  margin: 5% auto;
+}
+
+// current document grid
+$flex-box-border-color: $medium-gray;
+$flex-box-border: 1px solid $flex-box-border-color;
+$flex-box-background: lighten($light-gray, 10);
+$flex-box-gutter: .4em;
+$flex-box-width: 18em;
+$flex-box-color: transparentize($base-font-color, .3);
+
+.flex-boxes {
+  @include clearfix;
+  @include justify-content(center);
+  @include align-items(stretch);
+  text-align: center;
+}
+
+.flex-box {
+  @include transition (all 0.2s ease-in-out);
+  @include align-self(stretch);
+  display: block;
+  box-shadow: inset 0 0 1px $flex-box-border-color, 0 2px 4px darken($base-background-color, 10);
+  border-radius: $base-border-radius;
+  margin: $flex-box-gutter;
+  padding: 2em 2em 3em 2em;
+  background: $flex-box-background;
+  border-top: 6px solid $base-accent-color;
+  max-width: 31%;
+  min-width:31%;
+  float:left;
+
+  &:hover {
+    background: rgba($base-accent-color, 0.3);
+  }
+}
+
+.flex-box .flex-title {
+  color: $flex-box-color;
+  font-family: $sans-serif;
+  font-weight: 500;
+  font-size: 1.5em;
+  margin-bottom: .5em;
+}
+
+.flex-box p {
+  margin: auto;
+  line-height: 1.5em;
+  color: transparentize($flex-box-color, .1);
 }
 
 
+/**** EDIT DOCUMENT ***/
 #document {
   float:left;
-  width:50%;
+  width:60%;
   margin-right: 5%;
+  padding: 1em;
   overflow-y:scroll;
+  overflow-x:hidden;
+  text-align:center;
+  border-radius: 10px;
+  background:rgba($light-gray, 0.4);
 }
 
 #notes {
   float:left;
-  width: 40%;
-  z-index:100;
+  width: 35%;
+}
+
+textarea {
+  border-radius:10px;
+  margin-bottom:0;
 }
 
 #note, label[for="note"], #submit {
@@ -32,6 +192,8 @@ label[for="highlight"] {
 .control-label {
   clear:both;
   display:block;
+  margin-bottom:1em;
+  font-size: 120%;
 }
 
 

@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def add_doc(self, title, article, notes, highlight):
+    def add_doc(self, title, descrip, article, notes, highlight):
         all_docs = Document.query.all()
         found = False
         for doc in all_docs:
@@ -44,7 +44,7 @@ class User(UserMixin, db.Model):
                 db.session.commit()
                 break
         if (not found):
-            new_doc = Document(title=title, article=article, user_id=self.id)
+            new_doc = Document(title=title, article=article, description=descrip, user_id=self.id)
             note = Note(body=notes, document_id=new_doc.id, highlight=highlight)
             new_doc.notes.append(note)
             self.documents.append(new_doc)
@@ -63,6 +63,7 @@ class Document(db.Model):
     __tablename__='docs'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
+    description = db.Column(db.Text)
     article = db.Column(db.Text)
     notes = db.relationship('Note', backref='notes', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

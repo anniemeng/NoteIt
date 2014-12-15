@@ -1,6 +1,22 @@
 {% extends "main/base.html" %}
+
 {% block main %}
-  <h1>NoteIt</h1>
+<div class="landing">
+  <h1 class="landing-title">NoteIt</h1>
 
   <button type="button" class="btn" onClick='location.href="/login"'>Login</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function titleFormat() {
+    height = $(window).height();
+    $(".landing-title").css("margin-top", height/4);
+  }
+
+  $(document).ready(titleFormat);
+
+  $(window).resize(titleFormat);
+</script>
 {% endblock %}

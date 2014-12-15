@@ -1,27 +1,34 @@
 {% extends "main/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block bar %}
+  <a class="link-bar" href="/logout">Logout</a>
+{% endblock %}
+
 {% block main %}
-<h1>Welcome {{ user.name }}</h1>
-<button type="button" class="btn" onClick='location.href="/logout"'>Logout</button>
-<h2> Your Documents </h2>
+<h1 class="welcome">Let's take notes, {{ user.name }}</h1>
 
+<div class="create">
 <h3> Create new document </h3>
+<hr>
 {{ wtf.quick_form(form) }}
+</div>
 
+<div class="current">
 <h3> Current Documents </h3>
-<ul>
-{% for doc in user.documents %}
-  <li>
-    <a href="document/{{ doc.id }}">
-    <p>Title: {{ doc.title }}</p>
+<hr>
+  {% if user.documents %}
+    <div class="flex-boxes">
+    {% for doc in user.documents %}
+    <a href="document/{{ doc.id }}" class="flex-box">
+      <h1 class="flex-title">{{ doc.title }}</h1>
+      <p>{{ doc.description }}</p>
     </a>
-    <p>Article: {{ doc.article }}</p>
-    {% for note in doc.notes %}
-      <p>Note: {{ note.body }} </p>
     {% endfor %}
-  </li>
-{% endfor %}
-</ul>
+    </div>
+  {% else %}
+    <p> None yet! </p>
+  {% endif %}
+</div>
 
 {% endblock %}
